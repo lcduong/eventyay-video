@@ -86,7 +86,7 @@ async function init ({token, inviteToken}) {
 		}, 60000)
 	}, 60000 - Date.now() % 60000) // align with full minutes
 	setInterval(() => store.dispatch('notifications/pollExternals'), 1000)
-	window.__venueless__release = RELEASE
+	window.__eventyay__release = RELEASE
 
 	window.addEventListener('beforeinstallprompt', function (event) {
 		console.log('install prompt', event)

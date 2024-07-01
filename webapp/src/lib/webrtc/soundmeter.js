@@ -1,7 +1,7 @@
 /*
  *  Copyright (c) 2015 The WebRTC project authors. All Rights Reserved.
  *
- * Modified by the venueless team to make the "slow" method "quicker"
+ * Modified by the eventyay team to make the "slow" method "quicker"
  *
  *  Use of this source code is governed by a BSD-style license
  *  that can be found in the LICENSE file in the root of the source

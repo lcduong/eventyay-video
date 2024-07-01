@@ -12,19 +12,19 @@
 				bunt-input(name="event", label="pretalx event slug", v-model="config.pretalx.event", placeholder="e.g. democon")
 				h2 Pretalx Connection
 				template(v-if="config.pretalx.connected")
-					p Your pretalx instance has successfully connected to venueless.
+					p Your pretalx instance has successfully connected to eventyay.
 					p(v-if="lastPush") Last time pretalx pushed a new schedule version: {{ lastPush }}
 				template(v-else)
-					p To enable automatic schedule update pushes from pretalx to venueless, activate the pretalx-venueless plugin and complete the connection procedure.
-					h3 Step 1: Install and activate the pretalx-venueless plugin
-					.pretalx-status(v-if="isPretalxPluginInstalled") pretalx-venueless plugin has been detected!
+					p To enable automatic schedule update pushes from pretalx to eventyay, activate the pretalx-eventyay plugin and complete the connection procedure.
+					h3 Step 1: Install and activate the pretalx-eventyay plugin
+					.pretalx-status(v-if="isPretalxPluginInstalled") pretalx-eventyay plugin has been detected!
 					.pretalx-status.plugin-not-installed(v-if="!isPretalxPluginInstalled")
-						| pretalx-venueless plugin not installed/activated or domain + event not a valid pretalx instance.
+						| pretalx-eventyay plugin not installed/activated or domain + event not a valid pretalx instance.
 						br
 						| Please install and activate the plugin in #[a(:href="`${pretalxDomain}orga/event/${config.pretalx.event}/settings/plugins`", target="_blank") your pretalx event plugin settings].
-					h3 Step 2: Connect pretalx to venueless
-					.pretalx-status(v-if="config.pretalx.connected") Pretalx-venueless connection active!
-					.pretalx-status.not-connected(v-else) Pretalx is not connected to venueless.
+					h3 Step 2: Connect pretalx to eventyay
+					.pretalx-status(v-if="config.pretalx.connected") Pretalx-eventyay connection active!
+					.pretalx-status.not-connected(v-else) Pretalx is not connected to eventyay.
 					bunt-button#btn-pretalx-connect(:disabled="!isPretalxPluginInstalled", :loading="connecting", @click="startPretalxConnect") {{ !config.pretalx.connected ? 'Connect to pretalx' : 'Reconnect to pretalx' }}
 			template(v-else-if="source === 'url'")
 				p To automatically load the schedule from an external system, enter an URL here. Note that the URL must be a JSON file compliant with the pretalx schedule widget API version 2.
@@ -174,7 +174,7 @@ export default {
 			this.error = error
 			console.log(error)
 		}
-		this.$watch(() => this.config?.pretalx?.domain ? `${this.pretalxDomain}${this.config.pretalx.event}/p/venueless/check` : null, async (url) => {
+		this.$watch(() => this.config?.pretalx?.domain ? `${this.pretalxDomain}${this.config.pretalx.event}/p/eventyay/check` : null, async (url) => {
 			this.isPretalxPluginInstalled = false
 			console.log(url)
 			if (!url || !/^https?:\/\//.test(url)) return
@@ -204,7 +204,7 @@ export default {
 				long: true
 			})
 			const apiUrl = config.api.base.startsWith('http') ? config.api.base : (window.location.origin + config.api.base)
-			window.location = `${this.pretalxDomain}orga/event/${this.config.pretalx.event}/settings/p/venueless/?url=${apiUrl}&token=${token}&returnUrl=${window.location.href}`
+			window.location = `${this.pretalxDomain}orga/event/${this.config.pretalx.event}/settings/p/eventyay/?url=${apiUrl}&token=${token}&returnUrl=${window.location.href}`
 		},
 		async save () {
 			this.$v.$touch()

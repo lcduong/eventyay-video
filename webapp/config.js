@@ -1,7 +1,7 @@
 /* global ENV_DEVELOPMENT */
 import cloneDeep from 'lodash/cloneDeep'
 let config
-if (ENV_DEVELOPMENT || !window.venueless) {
+if (ENV_DEVELOPMENT || !window.eventyay) {
 	const hostname = window.location.hostname
 	config = {
 		api: {
@@ -15,7 +15,7 @@ if (ENV_DEVELOPMENT || !window.venueless) {
 		locales: ['en', 'de', 'pt_BR'],
 	}
 } else {
-	// load from index.html as `window.venueless = {…}`
-	config = cloneDeep(window.venueless)
+	// load from index.html as `window.eventyay = {…}`
+	config = cloneDeep(window.eventyay)
 }
 export default config

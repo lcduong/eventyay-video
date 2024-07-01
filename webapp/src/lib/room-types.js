@@ -23,7 +23,7 @@ const ROOM_TYPES = [{
 	id: 'channel-zoom',
 	icon: 'webcam',
 	name: 'Video Channel (Zoom)',
-	description: 'This room type allows you to embed a zoom meeting or webinar directly into venueless.',
+	description: 'This room type allows you to embed a zoom meeting or webinar directly into eventyay.',
 	startingModule: 'call.zoom',
 	behindFeatureFlag: 'zoom'
 }, {
@@ -62,7 +62,7 @@ const ROOM_TYPES = [{
 	id: 'page-iframe',
 	icon: 'text-box-outline',
 	name: 'IFrame',
-	description: 'Using IFrames, you can embed arbitrary web pages and web applications into venueless.',
+	description: 'Using IFrames, you can embed arbitrary web pages and web applications into eventyay.',
 	startingModule: 'page.iframe'
 }, {
 	id: 'page-landing',

@@ -369,7 +369,7 @@ export default {
 						opaqueId: this.user.id,
 						success: (pluginHandle) => {
 							this.screensharePluginHandle = pluginHandle
-							log('venueless', 'info',
+							log('eventyay', 'info',
 								'Plugin attached! (' + this.screensharePluginHandle.getPlugin() + ', id=' + this.videoPluginHandle.getId() + ')')
 
 							const register = {
@@ -383,29 +383,29 @@ export default {
 							this.screensharePluginHandle.send({message: register})
 						},
 						error: (error) => {
-							log('venueless', 'error', '  -- Error attaching plugin...', error)
+							log('eventyay', 'error', '  -- Error attaching plugin...', error)
 							alert('Screen sharing failed (error: ' + error.message + ')')
 						},
 						consentDialog: (on) => {
 							this.waitingForConsent = on
 						},
 						iceState: (state) => {
-							log('venueless', 'info', 'ICE state changed to ' + state)
+							log('eventyay', 'info', 'ICE state changed to ' + state)
 							// if state "failed", show user, unless we're currently leaving the room
 						},
 						mediaState: (medium, on) => {
-							log('venueless', 'info', 'Janus ' + (on ? 'started' : 'stopped') + ' receiving our ' + medium)
+							log('eventyay', 'info', 'Janus ' + (on ? 'started' : 'stopped') + ' receiving our ' + medium)
 							if (medium === 'video' && on) {
 								this.screensharingState = 'published'
 							}
 						},
 						webrtcState: (on) => {
-							log('venueless', 'info', 'Janus says our WebRTC PeerConnection is ' + (on ? 'up' : 'down') + ' now')
+							log('eventyay', 'info', 'Janus says our WebRTC PeerConnection is ' + (on ? 'up' : 'down') + ' now')
 						},
 						onmessage: (msg, jsep) => {
-							log('venueless', 'debug', ' ::: Got a message (publisher) :::', msg)
+							log('eventyay', 'debug', ' ::: Got a message (publisher) :::', msg)
 							var event = msg.videoroom
-							log('venueless', 'debug', 'Event: ' + event)
+							log('eventyay', 'debug', 'Event: ' + event)
 							if (event) {
 								if (event === 'joined') {
 									if (Janus.webRTCAdapter.browserDetails.browser === 'safari') {
@@ -421,7 +421,7 @@ export default {
 									if (msg.unpublished) {
 									// One of the publishers has unpublished?
 										const unpublished = msg.unpublished
-										log('venueless', 'info', 'Publisher left: ' + unpublished)
+										log('eventyay', 'info', 'Publisher left: ' + unpublished)
 										if (unpublished === 'ok') {
 											this.screensharingState = 'unpublished'
 											this.screensharingError = null
@@ -440,13 +440,13 @@ export default {
 								}
 							}
 							if (jsep) {
-								log('venueless', 'debug', 'Handling SDP as well...', jsep)
+								log('eventyay', 'debug', 'Handling SDP as well...', jsep)
 								this.screensharePluginHandle.handleRemoteJsep({jsep: jsep})
 								var audio = msg.audio_codec
 								if (this.ourScreenShareStream && this.ourScreenShareStream.getAudioTracks() && this.ourScreenShareStream.getAudioTracks().length > 0 &&
 									!audio) {
 									// Audio has been rejected
-									log('venueless', 'warning', 'Our audio stream has been rejected, viewers won\'t hear our screenshare')
+									log('eventyay', 'warning', 'Our audio stream has been rejected, viewers won\'t hear our screenshare')
 								}
 								var video = msg.video_codec
 								if (this.ourScreenShareStream && this.ourScreenShareStream.getVideoTracks() && this.ourScreenShareStream.getVideoTracks().length > 0 &&
@@ -457,7 +457,7 @@ export default {
 							}
 						},
 						onlocalstream: (stream) => {
-							log('venueless', 'debug', ' ::: Got a local stream :::', stream)
+							log('eventyay', 'debug', ' ::: Got a local stream :::', stream)
 							this.ourScreenShareStream = stream
 							stream.getVideoTracks()[0].onended = () => {
 								this.toggleScreenShare()
@@ -465,10 +465,10 @@ export default {
 							// todo: show local stream instead of remote Stream
 						},
 						slowLink: (uplink) => {
-							log('venueless', 'info', 'slowlink on screenshare')
+							log('eventyay', 'info', 'slowlink on screenshare')
 						},
 						oncleanup: () => {
-							log('venueless', 'info', ' ::: Got a cleanup notification: we are unpublished now :::')
+							log('eventyay', 'info', ' ::: Got a cleanup notification: we are unpublished now :::')
 							this.ourScreenShareStream = null
 							this.screensharingState = 'unpublished'
 						},
@@ -588,12 +588,12 @@ export default {
 				{
 					media: media,
 					success: (jsep) => {
-						log('venueless', 'debug', 'Got publisher SDP!', jsep)
+						log('eventyay', 'debug', 'Got publisher SDP!', jsep)
 						var publish = {request: 'configure', audio: true, video: true}
 						this.screensharePluginHandle.send({message: publish, jsep: jsep})
 					},
 					error: (error) => {
-						log('venueless', 'error', 'WebRTC error:', error)
+						log('eventyay', 'error', 'WebRTC error:', error)
 						alert('Screen sharing failed (error: ' + error.message + ')')
 						this.screensharingState = 'failed'
 					},
@@ -610,7 +610,7 @@ export default {
 				success: (pluginHandle) => {
 					remoteFeed = pluginHandle
 					remoteFeed.simulcastStarted = false
-					log('venueless', 'info', 'Plugin attached! (' + remoteFeed.getPlugin() + ', id=' + remoteFeed.getId() + ')')
+					log('eventyay', 'info', 'Plugin attached! (' + remoteFeed.getPlugin() + ', id=' + remoteFeed.getId() + ')')
 					// We wait for the plugin to send us an offer
 					var subscribe = {
 						request: 'join',
@@ -628,22 +628,22 @@ export default {
 						(video === 'vp9' || (video === 'vp8' && !Janus.safariVp8))) {
 						if (video)
 							video = video.toUpperCase()
-						log('venueless', 'info', 'Publisher is using ' + video + ', but Safari doesn\'t support it: disabling video')
+						log('eventyay', 'info', 'Publisher is using ' + video + ', but Safari doesn\'t support it: disabling video')
 						subscribe.offer_video = false
 					}
 					remoteFeed.videoCodec = video
 					remoteFeed.send({message: subscribe})
 				},
 				error: (error) => {
-					log('venueless', 'error', '  -- Error attaching plugin...', error)
+					log('eventyay', 'error', '  -- Error attaching plugin...', error)
 					alert('Error attaching plugin... ' + error)
 				},
 				onmessage: (msg, jsep) => {
-					log('venueless', 'debug', ' ::: Got a message (subscriber) :::', msg)
+					log('eventyay', 'debug', ' ::: Got a message (subscriber) :::', msg)
 					var event = msg.videoroom
-					log('venueless', 'debug', 'Event: ' + event)
+					log('eventyay', 'debug', 'Event: ' + event)
 					if (msg.error) {
-						log('venueless', 'error', 'Error when subscribing: ' + msg.error)
+						log('eventyay', 'error', 'Error when subscribing: ' + msg.error)
 						// todo: show something?
 					} else if (event) {
 						if (event === 'attached') {
@@ -675,7 +675,7 @@ export default {
 						}
 					}
 					if (jsep) {
-						log('venueless', 'debug', 'Handling SDP as well...', jsep)
+						log('eventyay', 'debug', 'Handling SDP as well...', jsep)
 						// Answer and attach
 						remoteFeed.createAnswer({
 							jsep: jsep,
@@ -683,32 +683,32 @@ export default {
 							// (obviously only works if the publisher offered them in the first place)
 							media: {audioSend: false, videoSend: false},	// We want recvonly audio/video
 							success: (jsep) => {
-								log('venueless', 'debug', 'Got SDP!', jsep)
+								log('eventyay', 'debug', 'Got SDP!', jsep)
 								var body = {request: 'start', room: this.roomId}
 								remoteFeed.send({message: body, jsep: jsep})
 							},
 							error: (error) => {
-								log('venueless', 'error', 'WebRTC error:', error)
+								log('eventyay', 'error', 'WebRTC error:', error)
 								alert('WebRTC error... ' + error.message)
 							},
 						})
 					}
 				},
 				iceState: (state) => {
-					log('venueless', 'info',
+					log('eventyay', 'info',
 						'ICE state of this WebRTC PeerConnection (feed #' + remoteFeed.rfid + ') changed to ' + state)
 				},
 				webrtcState: (on) => {
-					log('venueless', 'info',
+					log('eventyay', 'info',
 						'Janus says this WebRTC PeerConnection (feed #' + remoteFeed.rfid + ') is ' + (on ? 'up' : 'down') +
 						' now')
 				},
 				slowLink: (uplink) => {
-					log('venueless', 'info', 'slowLink on subscriber')
+					log('eventyay', 'info', 'slowLink on subscriber')
 					this.downstreamSlowLinkCount++
 				},
 				onremotestream: (stream) => {
-					log('venueless', 'debug', 'Remote feed #' + remoteFeed.rfid + ', stream:', stream)
+					log('eventyay', 'debug', 'Remote feed #' + remoteFeed.rfid + ', stream:', stream)
 					const rfindex = this.feeds.findIndex((rf) => rf.rfid === remoteFeed.rfid)
 					const videoTracks = stream.getVideoTracks()
 
@@ -733,14 +733,14 @@ export default {
 					opaqueId: this.user.id,
 					success: (pluginHandle) => {
 						this.audioPluginHandle = pluginHandle
-						log('venueless', 'info', 'Plugin attached! (' + this.audioPluginHandle.getPlugin() + ', id=' + this.audioPluginHandle.getId() + ')')
+						log('eventyay', 'info', 'Plugin attached! (' + this.audioPluginHandle.getPlugin() + ', id=' + this.audioPluginHandle.getId() + ')')
 
 						const register = {
 							request: 'join',
 							room: this.roomId,
 							token: this.token,
 							id: this.sessionId,
-							display: 'venueless user',
+							display: 'eventyay user',
 							muted: this.automute
 						}
 						this.knownMuteState = this.automute
@@ -757,7 +757,7 @@ export default {
 						this.waitingForConsent = on
 					},
 					iceState: (state) => {
-						log('venueless', 'info', 'ICE state changed to ' + state)
+						log('eventyay', 'info', 'ICE state changed to ' + state)
 						if (state === 'failed') {
 							this.connectionState = 'failed'
 							this.connectionError = `ICE connection ${state}`
@@ -767,20 +767,20 @@ export default {
 						}
 					},
 					mediaState: (medium, on) => {
-						log('venueless', 'info', 'Janus ' + (on ? 'started' : 'stopped') + ' receiving our ' + medium)
+						log('eventyay', 'info', 'Janus ' + (on ? 'started' : 'stopped') + ' receiving our ' + medium)
 						if (medium === 'audio') {
 							this.audioReceived = on
 						}
 					},
 					webrtcState: (on) => {
-						log('venueless', 'info', 'Janus says our WebRTC PeerConnection is ' + (on ? 'up' : 'down') + ' now')
+						log('eventyay', 'info', 'Janus says our WebRTC PeerConnection is ' + (on ? 'up' : 'down') + ' now')
 					},
 					onmessage: (msg, jsep) => {
 						const event = msg.audiobridge
 						if (event) {
 							if (event === 'joined') {
 								if (msg.id) {
-									log('venueless', 'info', 'Successfully joined audiobridge ' + msg.room + ' with ID ' + msg.id)
+									log('eventyay', 'info', 'Successfully joined audiobridge ' + msg.room + ' with ID ' + msg.id)
 
 									this.ourAudioId = msg.id
 									this.connectionState = 'connected'
@@ -860,7 +860,7 @@ export default {
 							}
 						}
 						if (jsep) {
-							log('venueless', 'debug', 'Handling SDP as well...', jsep)
+							log('eventyay', 'debug', 'Handling SDP as well...', jsep)
 							this.audioPluginHandle.handleRemoteJsep({jsep: jsep})
 						}
 					},
@@ -870,17 +870,17 @@ export default {
 							const newUpstreamBitrate = Math.max(this.upstreamBitrate / 2, MIN_BITRATE)
 							if (newUpstreamBitrate !== this.upstreamBitrate) {
 								this.upstreamBitrate = newUpstreamBitrate
-								log('venueless', 'info', 'Received slowLink on outgoing audio, reducing video bitrate to ' + this.upstreamBitrate)
+								log('eventyay', 'info', 'Received slowLink on outgoing audio, reducing video bitrate to ' + this.upstreamBitrate)
 								const publish = {request: 'configure', audio: true, video: this.publishingWithVideo, bitrate: this.upstreamBitrate}
 								this.videoPluginHandle.send({message: publish})
 								this.upstreamSlowLinkCount = 0
 							} else {
 								if (this.upstreamSlowLinkCount > 5) {
-									log('venueless', 'info', 'Received slowLink on outgoing audio, video bitrate already at minimum, turning video off')
+									log('eventyay', 'info', 'Received slowLink on outgoing audio, video bitrate already at minimum, turning video off')
 									this.videoRequested = false
 									this.publishOwnVideo()
 								} else {
-									log('venueless', 'info', 'Received slowLink on outgoing audio, video bitrate already at minimum')
+									log('eventyay', 'info', 'Received slowLink on outgoing audio, video bitrate already at minimum')
 								}
 							}
 						}
@@ -911,7 +911,7 @@ export default {
 						}
 					},
 					oncleanup: () => {
-						log('venueless', 'info', ' ::: Got a cleanup notification: we are unpublished now :::')
+						log('eventyay', 'info', ' ::: Got a cleanup notification: we are unpublished now :::')
 						this.audioPublishingState = 'unpublished'
 					},
 				})
@@ -924,7 +924,7 @@ export default {
 					opaqueId: this.ourAudioId,
 					success: (pluginHandle) => {
 						this.videoPluginHandle = pluginHandle
-						log('venueless', 'info', 'Plugin attached! (' + this.videoPluginHandle.getPlugin() + ', id=' + this.videoPluginHandle.getId() + ')')
+						log('eventyay', 'info', 'Plugin attached! (' + this.videoPluginHandle.getPlugin() + ', id=' + this.videoPluginHandle.getId() + ')')
 
 						const register = {
 							request: 'join',
@@ -932,7 +932,7 @@ export default {
 							id: this.sessionId,
 							ptype: 'publisher',
 							token: this.token,
-							display: 'venueless user',
+							display: 'eventyay user',
 						}
 						this.videoPluginHandle.send({message: register})
 					},
@@ -944,7 +944,7 @@ export default {
 						this.waitingForConsent = on
 					},
 					iceState: (state) => {
-						log('venueless', 'info', 'ICE state changed to ' + state)
+						log('eventyay', 'info', 'ICE state changed to ' + state)
 						if (state === 'failed') {
 							// todo correct?
 							this.videoReceivingState = 'failed'
@@ -955,7 +955,7 @@ export default {
 						}
 					},
 					mediaState: (medium, on) => {
-						log('venueless', 'info', 'Janus ' + (on ? 'started' : 'stopped') + ' receiving our ' + medium)
+						log('eventyay', 'info', 'Janus ' + (on ? 'started' : 'stopped') + ' receiving our ' + medium)
 						if (medium === 'video') {
 							this.videoReceived = on
 						}
@@ -967,13 +967,13 @@ export default {
 						}
 					},
 					webrtcState: (on) => {
-						log('venueless', 'info', 'Janus says our WebRTC PeerConnection is ' + (on ? 'up' : 'down') + ' now')
+						log('eventyay', 'info', 'Janus says our WebRTC PeerConnection is ' + (on ? 'up' : 'down') + ' now')
 					},
 					onmessage: (msg, jsep) => {
 						const event = msg.videoroom
 						if (event) {
 							if (event === 'joined') {
-								log('venueless', 'info', 'Successfully joined room ' + msg.room + ' with ID ' + msg.id)
+								log('eventyay', 'info', 'Successfully joined room ' + msg.room + ' with ID ' + msg.id)
 
 								// Publisher/manager created, negotiate WebRTC and attach to existing feeds, if any
 								this.ourId = msg.id
@@ -1006,7 +1006,7 @@ export default {
 									this.videoPublishers = this.videoPublishers.filter((rf) => rf.id !== leaving)
 									const remoteFeed = this.feeds.find((rf) => rf.rfid === leaving)
 									if (remoteFeed != null) {
-										log('venueless', 'debug',
+										log('eventyay', 'debug',
 											'Feed ' + remoteFeed.rfid + ' (' + remoteFeed.rfdisplay + ') has left the room, detaching')
 										this.feeds = this.feeds.filter((rf) => rf.rfid !== remoteFeed.rfid)
 										remoteFeed.detach()
@@ -1024,7 +1024,7 @@ export default {
 									this.videoPublishers = this.videoPublishers.filter((rf) => rf.id !== unpublished)
 									const remoteFeed = this.feeds.find((rf) => rf.rfid === unpublished)
 									if (remoteFeed != null) {
-										log('venueless', 'debug', 'Feed ' + remoteFeed.rfid + ' (' + remoteFeed.rfdisplay + ') has left the room, detaching')
+										log('eventyay', 'debug', 'Feed ' + remoteFeed.rfid + ' (' + remoteFeed.rfdisplay + ') has left the room, detaching')
 										this.feeds = this.feeds.filter((rf) => rf.rfid !== remoteFeed.rfid)
 										remoteFeed.detach()
 									}
@@ -1040,7 +1040,7 @@ export default {
 							}
 						}
 						if (jsep) {
-							log('venueless', 'debug', 'Handling SDP as well...', jsep)
+							log('eventyay', 'debug', 'Handling SDP as well...', jsep)
 							this.videoPluginHandle.handleRemoteJsep({jsep: jsep})
 							// Check if any of the media we wanted to publish has
 							// been rejected (e.g., wrong or unsupported codec)
@@ -1059,17 +1059,17 @@ export default {
 							const newUpstreamBitrate = Math.max(this.upstreamBitrate / 2, MIN_BITRATE)
 							if (newUpstreamBitrate !== this.upstreamBitrate) {
 								this.upstreamBitrate = newUpstreamBitrate
-								log('venueless', 'info', 'Received slowLink on outgoing video, reducing bitrate to ' + this.upstreamBitrate)
+								log('eventyay', 'info', 'Received slowLink on outgoing video, reducing bitrate to ' + this.upstreamBitrate)
 								const publish = {request: 'configure', audio: true, video: this.publishingWithVideo, bitrate: this.upstreamBitrate}
 								this.videoPluginHandle.send({message: publish})
 								this.upstreamSlowLinkCount = 0
 							} else {
 								if (this.upstreamSlowLinkCount > 5) {
-									log('venueless', 'info', 'Received slowLink on outgoing video, bitrate already at minimum, turning video off')
+									log('eventyay', 'info', 'Received slowLink on outgoing video, bitrate already at minimum, turning video off')
 									this.videoRequested = false
 									this.publishOwnVideo()
 								} else {
-									log('venueless', 'info', 'Received slowLink on outgoing video, bitrate already at minimum')
+									log('eventyay', 'info', 'Received slowLink on outgoing video, bitrate already at minimum')
 								}
 							}
 						}
@@ -1097,7 +1097,7 @@ export default {
 						}
 					},
 					oncleanup: () => {
-						log('venueless', 'info', ' ::: Got a cleanup notification: we are unpublished now :::')
+						log('eventyay', 'info', ' ::: Got a cleanup notification: we are unpublished now :::')
 						this.videoPublishingState = 'unpublished'
 					},
 				})

@@ -13,7 +13,7 @@ module.exports = {
 		port: 8880
 	},
 	pwa: {
-		name: 'venueless',
+		name: 'eventyay',
 		themeColor: '#180044',
 		manifestOptions: {
 			icons: [{
@@ -82,7 +82,7 @@ module.exports = {
 		plugins: [
 			new webpack.DefinePlugin({
 				ENV_DEVELOPMENT: process.env.NODE_ENV === 'development',
-				RELEASE: `'${process.env.VENUELESS_COMMIT_SHA}'`
+				RELEASE: `'${process.env.EVENTYAY_COMMIT_SHA}'`
 			}),
 			new webpack.ProvidePlugin({
 				adapter: ['webrtc-adapter', 'default']

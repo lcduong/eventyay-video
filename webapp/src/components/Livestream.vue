@@ -226,7 +226,7 @@ export default {
 				player.on(Hls.Events.LEVEL_LOADED, (event, data) => {
 					this.isLive = data.details.live
 					if (!data.details.live && this.onlyLive) {
-						console.warn('STREAM IS NOT LIVE! Venueless stages will only play livestreams.')
+						console.warn('STREAM IS NOT LIVE! Eventyay stages will only play livestreams.')
 						this.player?.destroy()
 						this.offline = true
 					}
