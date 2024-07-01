@@ -138,7 +138,7 @@ export default {
 		height: calc(var(--vh) * 20)
 		display: flex
 		justify-content: center
-		background-color: var(--header-background-color)
+		// background-color: var(--header-background-color)
 		background-image: var(--header-background-image)
 		background-repeat: no-repeat
 		background-size: cover

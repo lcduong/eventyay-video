@@ -40,20 +40,20 @@ const firstReadable = function (colors, background = '#FFF', threshold = 4.5) {
 	return best
 }
 
-const CLR_PRIMARY_TEXT = {LIGHT: Color('rgba(0, 0, 0, .87)'), DARK: Color('rgba(255, 255, 255, 1)')}
+const CLR_PRIMARY_TEXT = {LIGHT: Color('rgba(33, 133, 208, 1)'), DARK: Color('rgba(255, 255, 255, 1)')}
 const CLR_SECONDARY_TEXT = {LIGHT: Color('rgba(0, 0, 0, .54)'), DARK: Color('rgba(255, 255, 255, .7)')}
 const CLR_SECONDARY_TEXT_FALLBACK = {LIGHT: Color('rgba(0, 0, 0, .74)'), DARK: Color('rgba(255, 255, 255, .9)')}
 const CLR_DISABLED_TEXT = {LIGHT: Color('rgba(0, 0, 0, .38)'), DARK: Color('rgba(255, 255, 255, .5)')}
 const CLR_DIVIDERS = {LIGHT: Color('rgba(255, 255, 255, .63)'), DARK: Color('rgba(255, 255, 255, .63)')}
 
 const DEFAULT_COLORS = {
-	primary: '#673ab7',
-	sidebar: '#180044',
+	primary: '#2185d0',
+	sidebar: '#ffffff',//'#180044',
 	bbb_background: '#333333',
 }
 
 const DEFAULT_LOGO = {
-	url: '/venueless-logo-full-white.svg',
+	url: '/eventyay-logo-full-white.svg',
 	fitToWidth: false
 }
 
