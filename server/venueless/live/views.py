@@ -49,16 +49,16 @@ class ManifestView(View):
             "theme_color": "#180044",
             "icons": [
                 {
-                    "src": "/venueless-logo.192.png",
+                    "src": "/logo.192.png",
                     "type": "image/png",
                     "sizes": "192x192",
                 },
                 {
-                    "src": "/venueless-logo.512.png",
+                    "src": "/logo.512.png",
                     "type": "image/png",
                     "sizes": "512x512",
                 },
-                {"src": "/venueless-logo.svg", "sizes": "192x192 512x512"},
+                {"src": "/logo.svg", "sizes": "192x192 512x512"},
             ],
             "start_url": ".",
             "display": "standalone",
