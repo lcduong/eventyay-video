@@ -109,4 +109,8 @@ export default {
 			.description
 				color: $clr-secondary-text-light
 				font-size: 13px
+#app:not(.override-sidebar-close)  .c-admin-rooms-new
+	+above('l')
+		grid-area: app-bar;
+		margin-left: var(--sidebar-width);
 </style>
