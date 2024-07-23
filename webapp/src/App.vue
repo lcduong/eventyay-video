@@ -346,6 +346,14 @@ export default {
 					font-size: 128px
 				h1
 					font-size: 24px
+			#media-source-iframes
+				iframe
+					top: 104px
+					left: 0px
+			.c-media-source
+				.is-offline
+					top: 104px
+					left: 0px
 		&:not(.override-sidebar-close)
 			grid-template-columns: var(--sidebar-width) auto
 			grid-template-areas: "app-bar app-bar" "rooms-sidebar main"
